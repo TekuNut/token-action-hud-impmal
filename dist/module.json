@@ -1,0 +1,77 @@
+{
+  "id": "token-action-hud-impmal",
+  "title": "Token Action HUD Imperium Maledictum",
+  "description": "Token Action HUD is a repositionable HUD of actions for a selected token",
+  "authors": [
+    {
+      "name": "TekuNut",
+      "url": "https://github.com/TekuNut"
+    }
+  ],
+  "url": "<<autoreplaced>>",
+  "manifest": "<<autoreplaced>>",
+  "download": "<<autoreplaced>>",
+  "readme": "<<autoreplaced>>",
+  "version": "<<autoreplaced>>",
+  "flags": {},
+  "compatibility": {
+    "minimum": "11",
+    "verified": "11.315"
+  },
+  "esmodules": [
+    "./modules/token-action-hud-impmal.mjs"
+  ],
+  "scripts": [
+  ],
+  "styles": [
+    "./styles/token-action-hud-impmal.css"
+  ],
+  "languages": [
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "languages/en.json"
+    }
+  ],
+  "packs": [],
+  "relationships": {
+    "systems": [
+      {
+        "id": "impmal",
+        "type": "system",
+        "compatibility": [
+          {
+            "minimum": "1.1.1",
+            "maximum": "1.1",
+            "verified": "1.1.1"
+          }
+        ]
+      }
+    ],
+    "requires": [
+      {
+        "id": "token-action-hud-core",
+        "type": "module",
+        "compatibility": [
+          {
+            "minimum": "1.5.0",
+            "maximum": "1.5",
+            "verified": "1.5.0"
+          }
+        ]
+      }
+    ],
+    "optional": [],
+    "flags": {
+      "optional": [],
+      "hotReload": {
+        "extensions": ["css", "html", "hbs", "json"],
+        "paths": ["styles", "languages/en.json"]
+      }
+    }
+  },
+  "socket": false,
+  "protected": false,
+  "coreTranslation": false,
+  "library": false
+}

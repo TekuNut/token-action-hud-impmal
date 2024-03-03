@@ -1,0 +1,53 @@
+
+on:
+  push:
+    # Sequence of patterns matched against refs/tags
+    tags:
+      - 'v[0-9].[0-9].[0-9]' # Push events matching the expected version scheme, e.g. v1.0.0
+      - '!v*-beta*' # Ignore versions for pre-release e.g. v1.0-beta0
+
+name: Upload Release Asset
+
+jobs:
+  build:
+    name: Upload Release Asset
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Extract Version from Tag
+        id: get_version
+        uses: battila7/get-version-action@v2
+
+      - name: Modify Module Manifest with Release-Specific Values
+        id: sub_manifest_link_version
+        uses: microsoft/variable-substitution@v1
+        with:
+          files: './dist/module.json'
+        env:
+          version: ${{steps.get_version.outputs.version-without-v}}
+          url: https://github.com/${{github.repository}}
+          manifest: https://github.com/${{github.repository}}/releases/latest/download/module.json
+          download: https://github.com/${{github.repository}}/releases/download/${{steps.get_version.outputs.version}}/module.zip
+          readme: https://github.com/${{github.repository}}/blob/${{steps.get_version.outputs.version}}/README.md
+          bugs: https://github.com/${{github.repository}}/issues
+
+      - name: Build module.zip
+        run: |
+          cp README.md LICENSE dist/
+          cd dist/
+          zip -r module.zip module.json README.md LICENSE languages modules styles
+
+      - name: Update Release with Files
+        id: create_version_release
+        uses: ncipollo/release-action@v1
+        with:
+          allowUpdates: true
+          name: Release ${{steps.get_version.outputs.version}}
+          token: ${{secrets.GITHUB_TOKEN}}
+          artifacts: './dist/module.json, ./dist/module.zip'
+          tag: ${{github.ref}}
+
