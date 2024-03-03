@@ -2,6 +2,7 @@
   "tokenActionHud": {
     "impmal": {
       "action": "Action",
+      "actions.dodge": "Dodge",
       "actions.rest": "Rest",
       "actions.rollInitiative": "Roll Initiative",
       "ammo": "Ammo",

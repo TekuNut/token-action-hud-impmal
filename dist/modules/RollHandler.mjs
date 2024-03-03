@@ -330,7 +330,10 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
                     if (game.combat?.current?.tokenId === token.id) {
                         await game.combat?.nextTurn()
                     }
-                    break
+                    break;
+                case 'dodge':
+                    await actor.setupSkillTest({key : "reflexes", name : "Dodge"});
+                    break;
                 case 'initiative':
                     return this.#rollInitiative(actor);
                 case 'rest':

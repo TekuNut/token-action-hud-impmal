@@ -930,6 +930,14 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
                         cssClass = `toggle${active}`;
                     }
 
+                    if(id == "dodge") {
+                        // Show the appropriate test target value for the Dodge action.
+                        let dodge = this.actor.itemTypes.specialisation.find(i => i.name == "Dodge" && i.system.skill == "reflexes");
+                        let dodgeValue = dodge?.system?.total ?? this.actor.system.skills.reflexes.total;
+                        info1.text = `${dodgeValue}`;
+                        info1.title = game.i18n.localize('tokenActionHud.impmal.tooltips.testTarget');
+                    }
+
                     return {
                         id,
                         name,
@@ -948,6 +956,7 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
         async #buildUtilityCombat() {
             const combatTypes = {
                 initiative: { id: 'initiative', name: game.i18n.localize('tokenActionHud.impmal.actions.rollInitiative') },
+                dodge: { id: 'dodge', name: game.i18n.localize('tokenActionHud.impmal.actions.dodge') },
                 endTurn: { id: 'endTurn', name: game.i18n.localize('tokenActionHud.endTurn') }
             }
 
