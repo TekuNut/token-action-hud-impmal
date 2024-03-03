@@ -523,7 +523,7 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
                 // Display a single action button to indicate the selected action.
                 let id = currentAction;
                 let name = `Current Action: ${IMPMAL.actions[currentAction].label}`;
-                const listName = `${actionTypeName}${name}`;
+                const listName = `${name}`;
                 const encodedValue = [actionType, 'clear'].join(this.delimiter);
                 const img = coreModule.api.Utils.getImage(IMPMAL.actions[currentAction]);
                 const icon3 = '<i class="fa-solid fa-xmark"></i>';
