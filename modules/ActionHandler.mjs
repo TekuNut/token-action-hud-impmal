@@ -61,7 +61,7 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
 
                 this.actorData = { id: this.actor.id };
                 this.items = coreModule.api.Utils.sortItemsByName(items);
-                this.itemCategories = this.actor.itemCategories;
+                this.itemTypes = this.actor.itemTypes;
 
                 let skills = this.actor.system.skills;
                 let skillSpecializations = this.actor.items.filter((item) => item.type == 'specialisation')
@@ -252,7 +252,7 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
 
             // Add the injuries, corruption and critical wounds.
             for (let [_, g] of Object.entries(WOUND_CORRUPTION_GROUPS)) {
-                const items = (this.itemCategories[g.itemType] ?? []).filter(i => !g.category || i.system.category == g.category);
+                const items = (this.itemTypes[g.itemType] ?? []).filter(i => !g.category || i.system.category == g.category);
 
                 const info1 = this.#getWoundCorruptionGroupInfo(g.itemType, g.category, items);
                 const icon1 = this.#getWoundCorruptionGroupIcons(g.itemType, g.category);
@@ -655,7 +655,7 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
             const actions = [];
 
             // Get first active force field.
-            let forceFields = this.actor.itemCategories.forceField;
+            let forceFields = this.actor.itemTypes.forceField;
             let activeForceField = forceFields.find(item => item.system.isEquipped);
             for (let forceField of forceFields) {
                 let isActive = !forceField.system.overload.collapsed && forceField.id == activeForceField?.id;
@@ -1261,7 +1261,7 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
             if (!patron) return [];
 
             let boonsLiabilities = [];
-            for (let item of patron.itemCategories.boonLiability) {
+            for (let item of patron.itemTypes.boonLiability) {
                 if (!item.system.visible) continue;
                 boonsLiabilities.push(item);
             }
